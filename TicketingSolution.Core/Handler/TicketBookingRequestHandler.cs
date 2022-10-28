@@ -1,13 +1,18 @@
 ﻿namespace TicketingSolution.Core
 {
-    internal class TicketBookingRequestHandler
+    public class TicketBookingRequestHandler
     {
         public TicketBookingRequestHandler()
         {
         }
 
-        internal ServiceBookingResult BookingService(TicketBookingRequest bookingRequest)
+        public ServiceBookingResult BookService(TicketBookingRequest bookingRequest)
         {
+            if (bookingRequest is null)
+            {
+                throw new ArgumentNullException(nameof(bookingRequest));
+            }
+
             return new ServiceBookingResult
             {
                 Name = bookingRequest.Name,
@@ -16,6 +21,6 @@
             };
         }
 
-        
+
     }
 }
