@@ -26,7 +26,17 @@ namespace TicketingSolution.Core
             //    Family = bookingRequest.Family,
             //    Email = bookingRequest.Email
             //});
-            _ticketBookingService.Save(CreatBookingObject<TicketBooking>(bookingRequest));
+
+            var availableTickets = _ticketBookingService.GetAvailableTickets(bookingRequest.Date);
+
+            if (availableTickets.Any())
+            {
+                var Ticket = availableTickets.First();
+                var TicketBooking = CreatBookingObject<TicketBooking>(bookingRequest);
+                TicketBooking.TicketId = Ticket.Id;
+            _ticketBookingService.Save(TicketBooking);
+            }
+
 
             //return new ServiceBookingResult
             //{

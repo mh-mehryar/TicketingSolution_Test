@@ -2,6 +2,6 @@
 {
     public class TicketBooking : ServiceBookingBase
     {
-        
+        public int TicketId { get; set; }
     }
 }
