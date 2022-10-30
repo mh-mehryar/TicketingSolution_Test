@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using TicketingSolution.Core.DataService;
 using TicketingSolution.Core.Domain;
+using TicketingSolution.Core.Enums;
 
 namespace TicketingSolution.Core
 {
@@ -28,15 +29,23 @@ namespace TicketingSolution.Core
             //});
 
             var availableTickets = _ticketBookingService.GetAvailableTickets(bookingRequest.Date);
+            var result = CreatBookingObject<ServiceBookingResult>(bookingRequest);
 
             if (availableTickets.Any())
             {
                 var Ticket = availableTickets.First();
                 var TicketBooking = CreatBookingObject<TicketBooking>(bookingRequest);
                 TicketBooking.TicketId = Ticket.Id;
-            _ticketBookingService.Save(TicketBooking);
+                _ticketBookingService.Save(TicketBooking);
+                result.TicketBookingId = TicketBooking.TicketId;
+                result.Flag = BookingResultFlag.Success;
+            }
+            else
+            {
+                result.Flag = BookingResultFlag.Failure;
             }
 
+            return result;
 
             //return new ServiceBookingResult
             //{
@@ -44,7 +53,7 @@ namespace TicketingSolution.Core
             //    Family = bookingRequest.Family,
             //    Email = bookingRequest.Email
             //}; 
-            return (CreatBookingObject<ServiceBookingResult>(bookingRequest));
+            //return (CreatBookingObject<ServiceBookingResult>(bookingRequest));
 
         }
 
