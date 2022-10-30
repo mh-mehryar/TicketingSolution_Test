@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketingSolution.Core;
 using TicketingSolution.Core.DataService;
-using TicketingSolution.Core.Domain;
 using TicketingSolution.Core.Enums;
+using TicketingSolution.Domain;
 using Xunit.Sdk;
 
 namespace TicketingSolution.Core
